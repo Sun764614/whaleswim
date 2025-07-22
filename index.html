@@ -112,13 +112,24 @@
         /* 모바일 최적화 */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 1.8em;
+                font-size: 1.5em; /* 폰트 크기를 더 작게 조정하여 한 줄 표시 유도 */
+                /* white-space: nowrap; /* 필요시 사용 (텍스트가 넘치면 잘림) */
+                /* overflow: hidden; */
+                /* text-overflow: ellipsis; */
             }
             .container {
                 padding: 10px;
             }
+            h2 {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+                padding-bottom: 8px;
+            }
+            section:nth-of-type(2) {
+                margin-top: 30px !important;
+            }
             .course-list {
-                grid-template-columns: 1fr; /* 모바일에서는 1열로 */
+                grid-template-columns: 1fr;
             }
             .course-card-content {
                 padding: 15px;
@@ -191,7 +202,7 @@
                 if (course.type === "일반 경영") {
                     a.href = `Swim_Courses/${course.file}`;
                 } else if (course.type === "오리발/경영") {
-                    a.href = `Fins_Swim_Courses/${course.file}`; // 오리발 코스는 Fins_Swim_Courses 폴더로 연결
+                    a.href = `Fins_Swim_Courses/${course.file}`;
                 }
                 
                 a.classList.add('course-card');
