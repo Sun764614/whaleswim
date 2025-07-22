@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐋 고래반 수영 코스 - 일반 경영 #1 🐋</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* 연한 하늘색 배경 */
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #007bff; /* 파란색 헤더 */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+        nav {
+            background-color: #0056b3; /* 더 진한 파란색 내비게이션 */
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #003f80; /* 호버 시 더 어둡게 */
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #e6f2ff; /* 연한 파란색 */
+            color: #0056b3;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+        .total-distance {
+            text-align: right;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0056b3;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #ccc;
+        }
+        .course-info {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e6f7ff; /* 더 연한 파란색 정보 박스 */
+            border: 1px solid #b3e0ff;
+            border-radius: 8px;
+            font-size: 0.95em;
+            color: #444;
+        }
+        .course-info strong {
+            color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #007bff;
+            color: white;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+        }
+        /* 이모티콘에 대한 추가 스타일 */
+        .emoji {
+            margin-right: 8px; /* 이모티콘과 텍스트 사이 간격 */
+            font-size: 1.1em; /* 이모티콘 크기 조정 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🐋 고래반 수영 코스 🐋</h1>
+        <p id="courseTitle"></p>
+    </header>
+
+    <nav>
+        <a href="../index.html">메인으로</a>
+    </nav>
+
+    <div class="container">
+        <h2>코스 상세 내용</h2>
+        <div class="course-info">
+            <p><strong>코스 목표:</strong> <span id="courseGoal"></span></p>
+            <p><strong>팁:</strong> <span id="courseTip"></span></p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>내용</th>
+                </tr>
+            </thead>
+            <tbody id="courseTableBody">
+            </tbody>
+        </table>
+        <div class="total-distance">총 거리: <span id="totalDistance"></span>m</div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 고래반 수영 클럽. 모든 권리 보유.</p>
+        <p>이서수영장 고래반과 함께 즐거운 수영 생활을!</p>
+    </footer>
+
+    <script>
+        // 이 courseData 변수만 각 코스 페이지마다 변경됩니다.
+        const courseData = {
+            "courseName": "이서수영장 고 래 반 운동 #1 (일반 경영)",
+            "totalDistance": "1,200",
+            "courseGoal": "전신 영법 훈련 및 유연성 강화", // 이미지에 구체적인 목표가 없어 일반적인 내용으로 대체
+            "courseTip": "각 발차기 동작을 정확하게 수행하여 효율을 높이세요.", // 이미지에 구체적인 팁이 없어 일반적인 내용으로 대체
+            "sections": [
+                { "type": "W-UP", "content": "" },
+                { "type": "자유형, 배영, 평형, 접영 발차기", "content": "50 X 4" },
+                { "type": "양팔배영", "content": "50 X 2" },
+                { "type": "배영", "content": "200 X 1, 100 X 1, 50 X 2" },
+                { "type": "걷기", "content": "휴식" },
+                { "type": "오른팔 접영", "content": "50 X 1" },
+                { "type": "왼팔 접영", "content": "50 X 1" },
+                { "type": "무호흡 접영", "content": "25 X 6, 25 X 2" },
+                { "type": "자유형", "content": "50 X 6" },
+                { "type": "잡영", "content": "25 X 1" }, // PDF에서는 '잡영'으로 표기됨
+                { "type": "Down", "content": "운동 마무리" }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('courseTitle').textContent = courseData.courseName;
+            document.getElementById('courseGoal').textContent = courseData.courseGoal;
+            document.getElementById('courseTip').textContent = courseData.courseTip;
+
+            const tableBody = document.getElementById('courseTableBody');
+            courseData.sections.forEach(section => {
+                const row = tableBody.insertRow();
+                const typeCell = row.insertCell();
+                const contentCell = row.insertCell();
+
+                // 이모티콘 추가 함수
+                function getEmojiForType(type) {
+                    switch (type) {
+                        case "W-UP": return "🧘‍♀️";
+                        case "자유형 오리발":
+                        case "자유형":
+                        case "자유형[천천히]": return "🏊‍♂️";
+                        case "평형 오리발":
+                        case "평형": return "🐸";
+                        case "배영 오리발":
+                        case "배영": return "🔙";
+                        case "접영 오리발":
+                        case "접영": return "🦋";
+                        case "킥판잡고 접영 발차기":
+                        case "배영 접영 발차기":
+                        case "배영 발차기":
+                        case "접영, 배영, 자유형 발차기":
+                        case "머리들고 자유형 발차기":
+                        case "헤드업 자유형 발차기": return "🦵"; // 발차기/킥판
+                        case "걷기": return "🚶‍♀️";
+                        case "IM": return "🏅";
+                        case "접영 → 자유형":
+                        case "접영 → 배영":
+                        case "접영 → 평형": return "🔄"; // 연계
+                        case "잠영":
+                        case "잡영": return "🤫"; // '잡영'도 '잠영'과 유사하게 처리
+                        case "Down": return "🛀";
+                        case "sprint(빠르게] 자유형": return "⚡";
+                        case "양팔배영":
+                        case "양팔 배영": return "💪";
+                        case "오른팔 접영": return "👉";
+                        case "왼팔 접영": return "👈";
+                        case "무호흡 접영": return "💨";
+                        case "자유형 투루젠":
+                        case "평형 투루젠": return "🔄";
+                        case "배영[접영킥]": return "🦵🔙";
+                        default: return ""; // 기본값 (이모티콘 없음)
+                    }
+                }
+
+                typeCell.innerHTML = `<span class="emoji">${getEmojiForType(section.type)}</span>${section.type}`;
+                contentCell.textContent = section.content;
+            });
+            document.getElementById('totalDistance').textContent = courseData.totalDistance;
+        });
+    </script>
+</body>
+</html>
