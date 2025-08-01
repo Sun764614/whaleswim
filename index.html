@@ -3,245 +3,603 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐋 이서수영장 고래반 수영 코스 🐋</title>
+    <title>🐋 고래반 수영 코스 전체 요약 🐋</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff; /* 연한 하늘색 배경 */
+            background-color: #f0f7ff;
             color: #333;
             line-height: 1.6;
         }
-        header {
-            background-color: #007bff; /* 파란색 헤더 */
-            color: white;
-            padding: 20px 0;
+        .header {
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 20px;
+            background-color: #007bff;
+            color: #fff;
         }
-        header h1 {
+        .header h1 {
             margin: 0;
-            font-size: 2.2em;
-            letter-spacing: 1px;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
         }
         .container {
+            display: flex;
+            min-height: calc(100vh - 100px); /* Adjust based on header height */
             max-width: 1200px;
             margin: 20px auto;
-            padding: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        h2 {
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.8em;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
+        .sidebar {
+            width: 300px;
+            background-color: #e6f7ff;
+            padding: 20px;
+            border-right: 2px solid #b3e0ff;
+        }
+        .sidebar-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .sidebar-tabs button {
+            flex-grow: 1;
+            padding: 15px 10px;
+            font-size: 1em;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            background-color: #b3e0ff;
+            color: #004d99;
+            transition: all 0.3s ease;
+        }
+        .sidebar-tabs button:first-child {
+            border-top-left-radius: 10px;
+        }
+        .sidebar-tabs button:last-child {
+            border-top-right-radius: 10px;
+        }
+        .sidebar-tabs button.active {
+            background-color: #007bff;
+            color: #fff;
+            box-shadow: inset 0 3px 5px rgba(0,0,0,0.1);
         }
         .course-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 반응형 그리드 */
-            gap: 20px;
             list-style: none;
             padding: 0;
+            margin: 0;
         }
-        .course-card {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: #333;
+        .course-list li {
+            padding: 15px;
+            border-bottom: 1px solid #cceeff;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 1.1em;
+            color: #004d99;
+            font-weight: 500;
         }
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        .course-list li:hover {
+            background-color: #cceeff;
         }
-        .course-card-content {
-            padding: 20px;
+        .course-list li.active {
+            background-color: #99ccff;
+            font-weight: 700;
+        }
+        .course-list li:last-child {
+            border-bottom: none;
+        }
+        .main-content {
             flex-grow: 1;
+            padding: 40px;
+            background-color: #fff;
+            position: relative;
         }
-        .course-card h3 {
-            color: #0056b3;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.4em;
-        }
-        .course-card p {
-            margin-bottom: 5px;
-            font-size: 0.95em;
-        }
-        .course-card strong {
-            color: #004085;
-        }
-        .course-type-tag {
-            display: inline-block;
-            background-color: #007bff;
+        .print-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #28a745;
             color: white;
-            padding: 5px 10px;
+            border: none;
             border-radius: 5px;
-            font-size: 0.85em;
-            margin-top: 10px;
-            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        .course-type-tag.fins {
-            background-color: #28a745; /* 오리발은 다른 색상 */
+        .print-button:hover {
+            background-color: #218838;
         }
-        .course-goal {
-            font-size: 0.9em;
-            color: #555;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            line-height: 1.4;
+        .course-section {
+            background: linear-gradient(145deg, #ffffff, #f0f8ff);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            padding: 40px;
         }
-
-        footer {
+        .hidden {
+            display: none;
+        }
+        h2 {
+            color: #004d99;
+            margin: 0 0 15px 0;
+            font-size: 2.2em;
+            font-weight: 700;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #007bff;
             text-align: center;
+        }
+        .course-info {
+            background-color: #e6f7ff;
+            border-left: 6px solid #007bff;
             padding: 20px;
-            margin-top: 40px;
-            background-color: #007bff;
-            color: white;
-            font-size: 0.9em;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+        .course-info p {
+            margin: 0;
+            font-size: 1em;
+            color: #444;
+            display: flex;
+            align-items: flex-start;
+        }
+        .course-info p + p {
+            margin-top: 10px;
+        }
+        .course-info strong {
+            color: #0056b3;
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            border: 2px solid #ddd;
+            font-size: 1em;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #d6eaff;
+            color: #004d99;
+            font-weight: 700;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .total-distance {
+            text-align: right;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #004d99;
+            padding-top: 25px;
+            border-top: 3px dashed #ccc;
+        }
+        .emoji {
+            margin-right: 5px;
+            font-size: 1em;
         }
 
-        /* 모바일 최적화 */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.5em; /* 폰트 크기를 더 작게 조정하여 한 줄 표시 유도 */
-                /* white-space: nowrap; /* 필요시 사용 (텍스트가 넘치면 잘림) */
-                /* overflow: hidden; */
-                /* text-overflow: ellipsis; */
+        /* 인쇄 전용 스타일 */
+        @media print {
+            body > *:not(.print-content) {
+                display: none;
             }
-            .container {
-                padding: 10px;
+            .print-content {
+                display: block;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .course-section {
+                box-shadow: none;
+                padding: 0;
             }
             h2 {
-                font-size: 1.5em;
-                margin-bottom: 20px;
-                padding-bottom: 8px;
+                font-size: 1.8em;
+                padding-bottom: 10px;
             }
-            section:nth-of-type(2) {
-                margin-top: 30px !important;
-            }
-            .course-list {
-                grid-template-columns: 1fr;
-            }
-            .course-card-content {
-                padding: 15px;
-            }
-            .course-card h3 {
-                font-size: 1.2em;
-            }
-            .course-card p {
+            .course-info p, table {
                 font-size: 0.9em;
+            }
+            th, td {
+                padding: 8px;
+            }
+            .total-distance {
+                font-size: 1.2em;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>🐋 이서수영장 고래반 수영 코스 목록 🐋</h1>
-    </header>
 
-    <div class="container">
-        <section>
-            <h2>일반 경영 코스</h2>
-            <ul class="course-list" id="generalCourses">
-                </ul>
-        </section>
-
-        <section style="margin-top: 40px;">
-            <h2>오리발/경영 코스</h2>
-            <ul class="course-list" id="finsCourses">
-                </ul>
-        </section>
+    <div class="header">
+        <h1>🐋 고래반 수영 코스 전체 요약 🐋</h1>
+        <p>원하는 코스를 선택하여 상세 내용을 확인하고 출력할 수 있습니다.</p>
     </div>
 
-    <footer>
-        <p>&copy; 2025 고래반 수영 클럽. 모든 권리 보유.</p>
-        <p>이서수영장 고래반과 함께 즐거운 수영 생활을!</p>
-    </footer>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-tabs">
+                <button id="fins-courses-btn" class="active">오리발 코스</button>
+                <button id="regular-courses-btn">일반 코스</button>
+            </div>
+            <ul class="course-list" id="course-list"></ul>
+        </div>
+        
+        <div class="main-content">
+            <button id="print-btn" class="print-button">출력하기</button>
+            <div id="course-detail-container">
+                </div>
+        </div>
+    </div>
 
     <script>
-        const coursesData = [
-            // 일반 경영 코스
-            { type: "일반 경영", number: 1, distance: "1,200m", file: "course_s_1.html", goal: "영법 완성 및 지구력 향상" },
-            { type: "일반 경영", number: 2, distance: "1,350m", file: "course_s_2.html", goal: "지구력 및 기술 향상" },
-            { type: "일반 경영", number: 3, distance: "850m", file: "course_s_3.html", goal: "IM 및 기본기 강화" },
-            { type: "일반 경영", number: 4, distance: "950m", file: "course_s_4.html", goal: "영법별 균형 훈련" },
-            { type: "일반 경영", number: 5, "distance": "1,400m", file: "course_s_5.html", "goal": "스피드 및 유산소 지구력" },
-            { type: "일반 경영", number: 6, distance: "1,150m", file: "course_s_6.html", goal: "전신 조화 및 지구력" },
-            { type: "일반 경영", number: 7, distance: "1,000m", file: "course_s_7.html", goal: "다양한 영법 숙달" },
-            { type: "일반 경영", number: 8, distance: "1,000m", file: "course_s_8.html", goal: "자세 교정 및 효율 증대" },
-            { type: "일반 경영", number: 9, distance: "850m", file: "course_s_9.html", goal: "영법 연계 및 효율성 증진" },
-            { type: "일반 경영", number: 10, distance: "850m", file: "course_s_10.html", goal: "영법 연결 및 효율성 증진" },
+        const allCourseData = {
+            "fins": [
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #1 (오리발/발차기)",
+                    "totalDistance": "1,400",
+                    "courseGoal": "자유형 및 배영 발차기 지구력 강화",
+                    "courseTip": "자유형 킥을 할 때 머리를 들고 하면 더 큰 저항을 느낄 수 있습니다.<br>배영 시 어깨 롤링을 크게 하여 물을 효과적으로 밀어내세요.<br>평영 발차기 이후에 글라이딩 동작을 길게 가져가세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형 발차기", "content": "50 X 4" },
+                        { "type": "배영 발차기", "content": "50 X 4" },
+                        { "type": "접영 발차기", "content": "50 X 2" },
+                        { "type": "자유형", "content": "100 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "배영", "content": "100 X 2" },
+                        { "type": "평영", "content": "50 X 4" },
+                        { "type": "접영", "content": "25 X 4" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #2 (오리발/영법)",
+                    "totalDistance": "1,500",
+                    "courseGoal": "오리발을 활용한 영법 효율성 향상",
+                    "courseTip": "오리발을 착용하고 발차기 시 무릎을 굽히지 않고 발목을 유연하게 사용하세요.<br>접영은 팔 동작보다 킥을 이용한 웨이브에 집중하세요.<br>자유형 롱핀은 킥을 차는 템포를 일정하게 유지하며 추진력을 느껴보세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형", "content": "200 X 2" },
+                        { "type": "접영", "content": "50 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "평영", "content": "50 X 2" },
+                        { "type": "자유형", "content": "100 X 6" },
+                        { "type": "배영", "content": "50 X 4" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #3 (오리발/IM)",
+                    "totalDistance": "1,300",
+                    "courseGoal": "IM 훈련과 오리발을 활용한 종합 영법 강화",
+                    "courseTip": "오리발을 착용하고 IM(개인 혼영)을 할 때 영법 전환 시 빠르게 자세를 바꾸세요.<br>IM 훈련은 각 영법의 순서(접영-배영-평영-자유형)를 정확히 지키세요.<br>IM 훈련 이후 진행되는 턴 연습 시 벽을 차는 힘을 극대화하여 빠르게 나아가세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "오리발", "content": "50 X 4" },
+                        { "type": "IM", "content": "100 X 4" },
+                        { "type": "턴연습", "content": "50 X 4" },
+                        { "type": "접영", "content": "50 X 2" },
+                        { "type": "자유형", "content": "50 X 8" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #4 (오리발/IM)",
+                    "totalDistance": "1,200",
+                    "courseGoal": "오리발과 IM 훈련을 통한 스피드와 지구력 향상",
+                    "courseTip": "오리발을 착용하고 IM을 할 때는 각 영법의 킥을 강하고 빠르게 차세요.<br>IM 훈련 후 진행되는 자유형은 오리발의 추진력을 이용해 페이스를 높여보세요.<br>킥판 잡고 접영 킥을 할 때 웨이브를 크게 사용하여 허리의 유연성을 기르세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "오리발", "content": "50 X 4" },
+                        { "type": "IM", "content": "100 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "자유형", "content": "100 X 2" },
+                        { "type": "배영", "content": "50 X 2" },
+                        { "type": "평영", "content": "50 X 2" },
+                        { "type": "킥판 잡고 접영 킥", "content": "50 X 2" },
+                        { "type": "접영", "content": "50 X 2" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #5 (오리발/호흡)",
+                    "totalDistance": "1,400",
+                    "courseGoal": "안정적인 호흡과 영법 리듬 향상",
+                    "courseTip": "자유형 호흡 훈련 시에는 3, 5, 7회 등 다양한 호흡 박자를 시도해 보세요.<br>오리발을 이용한 자유형 시에는 물 속에서 길게 뻗는 글라이딩 자세를 유지하세요.<br>잠영을 통해 폐활량을 늘리고 물 속에서의 효율적인 자세를 익히세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형 호흡 연습", "content": "50 X 4" },
+                        { "type": "접영", "content": "50 X 4" },
+                        { "type": "자유형", "content": "100 X 6" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "배영 호흡 연습", "content": "50 X 2" },
+                        { "type": "평영 호흡 연습", "content": "50 X 2" },
+                        { "type": "접영 호흡 연습", "content": "50 X 2" },
+                        { "type": "잠영", "content": "25 X 4" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #6 (오리발/스피드)",
+                    "totalDistance": "1,400",
+                    "courseGoal": "IM 스피드 훈련 및 전신 근력 강화",
+                    "courseTip": "IM 훈련 시 영법 전환 구간에서 최대한 빠르게 동작을 이어가세요.<br>접영과 평영 발차기 연습을 통해 하체 근력을 강화할 수 있습니다.<br>평영 팔, 자유형 킥과 같이 다른 영법의 동작을 조합하여 새로운 감각을 익혀보세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "IM", "content": "200 X 1" },
+                        { "type": "IM", "content": "100 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "자유형", "content": "100 X 6" },
+                        { "type": "접영 발차기", "content": "50 X 2" },
+                        { "type": "평영팔, 자유형 킥", "content": "50 X 2" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                }
+            ],
+            "regular": [
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #1",
+                    "totalDistance": "1,450",
+                    "courseGoal": "자유형 및 배영 발차기 지구력 강화",
+                    "courseTip": "자유형 킥을 할 때 머리를 들고 하면 더 큰 저항을 느낄 수 있습니다.<br>배영 시 어깨 롤링을 크게 하여 물을 효과적으로 밀어내세요.<br>평영 발차기 이후에 글라이딩 동작을 길게 가져가세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형 발차기", "content": "50 X 5" },
+                        { "type": "배영 발차기", "content": "50 X 5" },
+                        { "type": "접영 발차기", "content": "50 X 3" },
+                        { "type": "자유형", "content": "100 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "배영", "content": "100 X 2" },
+                        { "type": "평영", "content": "50 X 4" },
+                        { "type": "접영", "content": "25 X 4" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #2",
+                    "totalDistance": "1,600",
+                    "courseGoal": "영법 효율성 향상 및 유연성 강화",
+                    "courseTip": "접영은 팔 동작보다 킥을 이용한 웨이브에 집중하세요.<br>평영 팔 동작 후 물을 끝까지 밀어내세요.<br>자유형 롱핀은 킥을 차는 템포를 일정하게 유지하며 추진력을 느껴보세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형", "content": "200 X 2" },
+                        { "type": "접영", "content": "50 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "평영", "content": "50 X 4" },
+                        { "type": "자유형", "content": "100 X 6" },
+                        { "type": "배영", "content": "50 X 4" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #3",
+                    "totalDistance": "1,700",
+                    "courseGoal": "IM 훈련을 통한 종합 영법 강화",
+                    "courseTip": "IM 훈련은 각 영법의 순서(접영-배영-평영-자유형)를 정확히 지키세요.<br>IM 훈련 이후 진행되는 턴 연습 시 벽을 차는 힘을 극대화하여 빠르게 나아가세요.<br>접영은 숨을 쉬는 타이밍이 중요합니다. 팔을 당길 때 호흡을 하세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형", "content": "200 X 1" },
+                        { "type": "오리발", "content": "50 X 4" },
+                        { "type": "IM", "content": "100 X 4" },
+                        { "type": "턴연습", "content": "50 X 4" },
+                        { "type": "접영", "content": "50 X 2" },
+                        { "type": "자유형", "content": "50 X 8" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #4",
+                    "totalDistance": "1,550",
+                    "courseGoal": "스피드와 지구력 향상",
+                    "courseTip": "IM 훈련 후 진행되는 자유형은 오리발의 추진력을 이용해 페이스를 높여보세요.<br>킥판 잡고 접영 킥을 할 때 웨이브를 크게 사용하여 허리의 유연성을 기르세요.<br>배영은 손이 물에 들어가는 순간부터 끝까지 물을 밀어내세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형 발차기", "content": "50 X 5" },
+                        { "type": "IM", "content": "100 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "자유형", "content": "100 X 4" },
+                        { "type": "배영", "content": "50 X 2" },
+                        { "type": "평영", "content": "50 X 2" },
+                        { "type": "킥판 잡고 접영 킥", "content": "50 X 2" },
+                        { "type": "접영", "content": "50 X 2" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #5",
+                    "totalDistance": "1,550",
+                    "courseGoal": "안정적인 호흡과 영법 리듬 향상",
+                    "courseTip": "자유형 호흡 훈련 시에는 3, 5, 7회 등 다양한 호흡 박자를 시도해 보세요.<br>오리발을 이용한 자유형 시에는 물 속에서 길게 뻗는 글라이딩 자세를 유지하세요.<br>잠영을 통해 폐활량을 늘리고 물 속에서의 효율적인 자세를 익히세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "자유형 호흡 연습", "content": "50 X 4" },
+                        { "type": "접영", "content": "50 X 4" },
+                        { "type": "자유형", "content": "100 X 6" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "배영 호흡 연습", "content": "50 X 2" },
+                        { "type": "평영 호흡 연습", "content": "50 X 2" },
+                        { "type": "접영 호흡 연습", "content": "50 X 2" },
+                        { "type": "잠영", "content": "25 X 4" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                },
+                {
+                    "courseName": "이서수영장 고 래 반 운동 #6",
+                    "totalDistance": "1,750",
+                    "courseGoal": "IM 스피드 훈련 및 전신 근력 강화",
+                    "courseTip": "IM 훈련 시 영법 전환 구간에서 최대한 빠르게 동작을 이어가세요.<br>접영과 평영 발차기 연습을 통해 하체 근력을 강화할 수 있습니다.<br>평영 팔, 자유형 킥과 같이 다른 영법의 동작을 조합하여 새로운 감각을 익혀보세요.",
+                    "sections": [
+                        { "type": "W-UP", "content": "" },
+                        { "type": "IM", "content": "200 X 1" },
+                        { "type": "IM", "content": "100 X 4" },
+                        { "type": "걷기", "content": "" },
+                        { "type": "자유형", "content": "100 X 6" },
+                        { "type": "접영 발차기", "content": "50 X 2" },
+                        { "type": "평영팔, 자유형 킥", "content": "50 X 2" },
+                        { "type": "Down", "content": "운동 마무리" }
+                    ]
+                }
+            ]
+        };
 
-            // 오리발/경영 코스
-            { type: "오리발/경영", number: 1, distance: "2,000m", file: "course_f_1.html", goal: "전신 근력 및 지구력 향상" },
-            { type: "오리발/경영", number: 2, distance: "1,250m", file: "course_f_2.html", goal: "접영 기술 및 지구력" },
-            { type: "오리발/경영", number: 3, distance: "1,250m", file: "course_f_3.html", goal: "IM 능력 향상" },
-            { type: "오리발/경영", number: 4, distance: "1,050m", file: "course_f_4.html", goal: "영법 기술 및 지구력" },
-            { type: "오리발/경영", number: 5, distance: "1,200m", file: "course_f_5.html", goal: "스피드 및 유산소 지구력" },
-            { type: "오리발/경영", number: 6, distance: "1,300m", file: "course_f_6.html", goal: "복합 영법 및 지구력" }
-        ];
+        const courseTemplate = (course, index, courseType) => {
+            const courseNumber = index + 1;
+            const courseTitleWithoutNumber = course.courseName.replace(`이서수영장 고 래 반 운동 #${courseNumber} `, '');
+            const courseId = `${courseType}-${index}`;
+
+            const getEmojiForType = (type) => {
+                switch (type) {
+                    case "W-UP": return "🧘‍♀️";
+                    case "자유형 오리발": case "오리발(자유형)": case "자유형(롱핀)": case "자유형": return "🏊‍♂️";
+                    case "평영 오리발": case "평영": case "평영팔, 자유형 킥": return "🐸";
+                    case "배영 오리발": case "배영": return "🔙";
+                    case "접영 오리발": case "접영": return "🦋";
+                    case "킥판 잡고 접영 킥": case "배영 발차기": case "접영 발차기": case "평영 발차기": case "자유형 발차기": return "🦵";
+                    case "걷기": return "🚶‍♀️";
+                    case "IM": case "IM(오리발)": return "🏅";
+                    case "턴연습(오리발)": case "턴연습": return "🤸‍♂️";
+                    case "잠영": return "🤫";
+                    case "Down": return "🛀";
+                    case "자유형 호흡 연습": case "배영 호흡 연습": case "평영 호흡 연습": case "접영 호흡 연습": return "😮‍💨";
+                    default: return "";
+                }
+            };
+
+            let tableRows = '';
+            course.sections.forEach(section => {
+                tableRows += `
+                    <tr>
+                        <td><span class="emoji">${getEmojiForType(section.type)}</span>${section.type}</td>
+                        <td>${section.content}</td>
+                    </tr>
+                `;
+            });
+
+            return `
+                <div class="course-section" id="${courseId}">
+                    <h2>🐋 코스 ${courseNumber} - ${courseTitleWithoutNumber} 🐋</h2>
+                    <div class="course-info">
+                        <p><strong><span class="emoji">🎯</span> 코스 목표:</strong> <span>${course.courseGoal}</span></p>
+                        <p><strong><span class="emoji">💡</span> 팁:</strong> <span>${course.courseTip}</span></p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>내용</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                    <div class="total-distance">총 거리: <span>${course.totalDistance}</span>m</div>
+                </div>
+            `;
+        };
 
         document.addEventListener('DOMContentLoaded', () => {
-            const generalCoursesList = document.getElementById('generalCourses');
-            const finsCoursesList = document.getElementById('finsCourses');
+            const finsCoursesBtn = document.getElementById('fins-courses-btn');
+            const regularCoursesBtn = document.getElementById('regular-courses-btn');
+            const courseListEl = document.getElementById('course-list');
+            const courseDetailContainer = document.getElementById('course-detail-container');
+            const printBtn = document.getElementById('print-btn');
+            let currentCourseType = 'fins';
+            let currentCourseIndex = 0;
 
-            coursesData.forEach(course => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                
-                // 파일 경로 수정: 코스 유형에 따라 다른 폴더 지정
-                if (course.type === "일반 경영") {
-                    a.href = `Swim_Courses/${course.file}`;
-                } else if (course.type === "오리발/경영") {
-                    a.href = `Fins_Swim_Courses/${course.file}`;
+            const renderCourseList = (courses, courseType) => {
+                courseListEl.innerHTML = '';
+                courses.forEach((course, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = course.courseName;
+                    listItem.dataset.index = index;
+                    listItem.dataset.type = courseType;
+                    if (index === 0) {
+                        listItem.classList.add('active');
+                    }
+                    courseListEl.appendChild(listItem);
+                });
+            };
+
+            const renderCourseDetail = (course, index, courseType) => {
+                courseDetailContainer.innerHTML = courseTemplate(course, index, courseType);
+            };
+
+            const loadAll = (courseType) => {
+                currentCourseType = courseType;
+                const courses = allCourseData[courseType];
+                renderCourseList(courses, courseType);
+                if (courses.length > 0) {
+                    currentCourseIndex = 0;
+                    renderCourseDetail(courses[0], 0, courseType);
+                } else {
+                    courseDetailContainer.innerHTML = `<p style="text-align:center; color: #666;">선택된 코스가 없습니다.</p>`;
                 }
-                
-                a.classList.add('course-card');
+            };
 
-                const contentDiv = document.createElement('div');
-                contentDiv.classList.add('course-card-content');
-
-                const title = document.createElement('h3');
-                title.textContent = `고래반 운동 #${course.number}`;
-
-                const typeP = document.createElement('p');
-                const typeSpan = document.createElement('span');
-                typeSpan.classList.add('course-type-tag');
-                if (course.type.includes('오리발')) {
-                    typeSpan.classList.add('fins');
+            const setActiveList = (type, index) => {
+                document.querySelectorAll('.course-list li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                const activeLi = courseListEl.querySelector(`li[data-index="${index}"][data-type="${type}"]`);
+                if (activeLi) {
+                    activeLi.classList.add('active');
                 }
-                typeSpan.textContent = course.type;
-                typeP.appendChild(typeSpan);
+            };
 
-                const goalP = document.createElement('p');
-                goalP.classList.add('course-goal');
-                goalP.innerHTML = `<strong>목표:</strong> ${course.goal}`;
+            finsCoursesBtn.addEventListener('click', () => {
+                finsCoursesBtn.classList.add('active');
+                regularCoursesBtn.classList.remove('active');
+                loadAll('fins');
+            });
 
-                const distanceP = document.createElement('p');
-                distanceP.innerHTML = `<strong>총 거리:</strong> ${course.distance}`;
+            regularCoursesBtn.addEventListener('click', () => {
+                regularCoursesBtn.classList.add('active');
+                finsCoursesBtn.classList.remove('active');
+                loadAll('regular');
+            });
 
-                contentDiv.appendChild(title);
-                contentDiv.appendChild(typeP);
-                contentDiv.appendChild(goalP);
-                contentDiv.appendChild(distanceP);
-                a.appendChild(contentDiv);
-                li.appendChild(a);
-
-                if (course.type === "일반 경영") {
-                    generalCoursesList.appendChild(li);
-                } else if (course.type === "오리발/경영") {
-                    finsCoursesList.appendChild(li);
+            courseListEl.addEventListener('click', (event) => {
+                const li = event.target.closest('li');
+                if (li) {
+                    const index = parseInt(li.dataset.index);
+                    const type = li.dataset.type;
+                    
+                    if (type === currentCourseType && index === currentCourseIndex) {
+                        return;
+                    }
+                    
+                    currentCourseType = type;
+                    currentCourseIndex = index;
+                    
+                    setActiveList(type, index);
+                    renderCourseDetail(allCourseData[type][index], index, type);
                 }
             });
+
+            printBtn.addEventListener('click', () => {
+                const printContent = document.createElement('div');
+                printContent.classList.add('print-content');
+                printContent.innerHTML = courseDetailContainer.innerHTML;
+                document.body.appendChild(printContent);
+                window.print();
+                document.body.removeChild(printContent);
+            });
+
+            // 페이지 로드 시 오리발 코스를 기본으로 표시
+            loadAll('fins');
         });
     </script>
 </body>
