@@ -191,31 +191,25 @@
 
         /* 인쇄 전용 스타일 */
         @media print {
-            body > *:not(.print-content) {
+            .header, .sidebar, .print-button {
                 display: none;
             }
-            .print-content {
-                display: block;
-                width: 100%;
+            body {
+                background-color: #fff;
+            }
+            .container {
+                box-shadow: none;
                 margin: 0;
+                padding: 0;
+                width: 100%;
+                display: block;
+            }
+            .main-content {
                 padding: 0;
             }
             .course-section {
                 box-shadow: none;
-                padding: 0;
-            }
-            h2 {
-                font-size: 1.8em;
-                padding-bottom: 10px;
-            }
-            .course-info p, table {
-                font-size: 0.9em;
-            }
-            th, td {
-                padding: 8px;
-            }
-            .total-distance {
-                font-size: 1.2em;
+                padding: 20px;
             }
         }
     </style>
@@ -590,12 +584,7 @@
             });
 
             printBtn.addEventListener('click', () => {
-                const printContent = document.createElement('div');
-                printContent.classList.add('print-content');
-                printContent.innerHTML = courseDetailContainer.innerHTML;
-                document.body.appendChild(printContent);
                 window.print();
-                document.body.removeChild(printContent);
             });
 
             // 페이지 로드 시 오리발 코스를 기본으로 표시
